@@ -1,32 +1,42 @@
 #include <iostream>
+#define MAX 99999
 using namespace std;
-// раскомментируй в зависимости от твеой группы
-//#define PI1
-//#define PT1
-#define PT2
-// вместо нуля поставь последние три цифры из номера зачетки
-#define NUM 0
-#define SIZE  (NUM*100)
+
+double* normirovanie(double mass[], int N)
+{
+	double *func1 = new double[MAX];
+	double max = mass[0];
+	double min = mass[0];
+	for (int i = 0; i < N; i++) {
+		if (mass[i] > max)
+			max = mass[i];
+		if (mass[i] < min)
+			min = mass[i];
+	}
+	for (int j = 0; j < N; j++)
+		func1[j] = (mass[j] - min) / (max - min);
+	return func1;
+}
+
 int main()
 {
-#if NUM==0
-#error NUM not properly defined
-#endif
-#ifdef PI1
-	typedef char T;
-#elif defined PT1
-	typedef int T;
-#elif defined PT2
-	typedef double T;
-#else
-#error Group not selected
-#endif
-	T * pT = new T [SIZE];
-	T * pT2 = new T [100];
-	pT[SIZE] = 65 + SIZE % 26;
-	pT2[10] = 65 + NUM /10.0;
-	delete[] pT2;
-	cout<<pT[SIZE]<<endl;
-	cout<<pT2[10]<<endl;
+	int n;
+	cin >> n;
+	cout << endl;
+	cout << endl;
+	double *mass = new double[MAX];
+	double *func2 = new double [MAX];
+	for (int i = 0; i < n; i++) {
+		cin >> mass[i];
+		cout << endl;
+	}
+	func2 = normirovanie(mass, n);
+	for (int i = 0; i < n; i++) {
+		cout << func2[i] << endl;
+		cout << endl;
+	}
+
+	delete [] func2;
+	delete [] mass;
 	return 0;
 }
